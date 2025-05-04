@@ -1,18 +1,24 @@
+using AutoSzereloMuhely.API;
 using Microsoft.EntityFrameworkCore;
 using AutoSzereloMuhely.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
-
 builder.Services.AddControllers();
 
-//builder.Services.AddDbContext<>()
+builder.Services.AddDbContext<DataContext>(
+    options =>
+    {
+        options.UseSqlite(builder.Configuration.GetConnectionString("SQLite"));
+    }
+    );
+
 
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IUgyfelService>();
-builder.Services.AddSingleton<IMunkaService>();
+builder.Services.AddSingleton<IUgyfelService, UgyfelService>();
+builder.Services.AddSingleton<IMunkaService, MunkaService>();
 
+var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {

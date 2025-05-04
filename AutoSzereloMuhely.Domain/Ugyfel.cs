@@ -6,7 +6,6 @@ namespace AutoSzereloMuhely.Domain;
 public class Ugyfel
 {
     [Key]
-    [Required]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int UgyfelId { get; set; }
 

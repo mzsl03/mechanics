@@ -8,7 +8,6 @@ public class Munka
 {
     
     [Key]
-    [Required]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int MunkaID { get; set; }
 

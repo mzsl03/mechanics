@@ -1,6 +1,13 @@
+using AutoSzereloMuhely.Domain;
+using Microsoft.AspNetCore.Mvc;
+
 namespace AutoSzereloMuhely.API.Controller;
 
-public class UgyfelController
+
+[ApiController]
+[Route("ugyfel")]
+public class UgyfelController : ControllerBase
 {
+    private readonly IUgyfelService _ugyfelService;
     
 }
