@@ -7,6 +7,8 @@ public interface IUgyfelService
 
     List<Ugyfel> GetAll();
 
-    Ugyfel Get(int id);
-    
+    Ugyfel? Get(int id);
+
+    void Delete(int id);
+
 }

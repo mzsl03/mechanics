@@ -7,7 +7,7 @@ public interface IMunkaService
     void Delete(int id);
 
     List<Munka> GetAll();
-    Munka Get(int id);
+    Munka? Get(int id);
 
     void Update(Munka munka);
 

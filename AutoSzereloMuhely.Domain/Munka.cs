@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.VisualBasic.CompilerServices;
+
 
 namespace AutoSzereloMuhely.Domain;
 
@@ -10,10 +10,13 @@ public class Munka
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int MunkaID { get; set; }
-
+    
+    [ForeignKey(nameof(UgyfelId))]
+    public string UgyfelId { get; set; }
+    
     [Required]
     [RegularExpression("^[A-Z]{3}-\\d{3}$$")]
-    public string UgyfelId { get; set; }
+    public string Rendszam { get; set; }
 
     [Required]
     [Range(typeof(int), "1900", "9999")] 
