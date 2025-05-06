@@ -1,4 +1,5 @@
 using AutoSzereloMuhely.API;
+using AutoSzereloMuhely.API.Services;
 using Microsoft.EntityFrameworkCore;
 using AutoSzereloMuhely.Domain;
 
@@ -15,18 +16,19 @@ builder.Services.AddDbContext<DataContext>(
 
 
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IUgyfelService, UgyfelService>();
-builder.Services.AddSingleton<IMunkaService, MunkaService>();
+builder.Services.AddScoped<IUgyfelService, UgyfelService>();
+builder.Services.AddScoped<IMunkaService, MunkaService>();
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    //app.UseHttpsRedirection();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+Console.WriteLine("SQLite path: " + Path.GetFullPath("AutoSzereloMuhely.db"));
 
 app.MapControllers();
 
