@@ -5,7 +5,10 @@ namespace AutoSzereloMuhely.API;
 
 public class DataContext : DbContext
 {
-    public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+    public DataContext(DbContextOptions<DataContext> options) : base(options)
+    {
+        Console.WriteLine("DB PATH: " + Path.GetFullPath("AutoSzereloMuhely.db"));
+    }
     
     
     public virtual DbSet<Munka> Munkak { get; set; }

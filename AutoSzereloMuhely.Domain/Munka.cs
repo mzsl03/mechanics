@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 
 namespace AutoSzereloMuhely.Domain;
@@ -11,8 +12,12 @@ public class Munka
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int MunkaID { get; set; }
     
+    
+    public int UgyfelId { get; set; }
+    
+    [JsonIgnore]
     [ForeignKey(nameof(UgyfelId))]
-    public string UgyfelId { get; set; }
+    public Ugyfel? Ugyfel { get; set; }
     
     [Required]
     [RegularExpression("^[A-Z]{3}-\\d{3}$$")]

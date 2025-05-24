@@ -33,7 +33,12 @@ public class MunkaController : ControllerBase
     public ActionResult<Munka> Get(int id)
     {
         var munka = _munkaService.Get(id);
-        return munka;
+        if (munka is not null)
+        {
+            return munka;    
+        }
+
+        return BadRequest();
     }
 
     [HttpDelete("id")]
