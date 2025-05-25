@@ -1,7 +1,7 @@
 using System.Net.Http.Json;
 using AutoSzereloMuhely.Domain;
 
-namespace AutoSzereloMuly.Client.Services;
+namespace AutoSzereloMuhely.Client.Services;
 
 public class UgyfelService : IUgyfelService
 {
@@ -13,14 +13,14 @@ public class UgyfelService : IUgyfelService
         _httpClient = httpClient;
     }
     
-    public async Task<List<Ugyfel>> GetUgyfelAsync()
+    public async Task<List<Ugyfel>?> GetAllUgyfelAsync()
     {
         return await _httpClient.GetFromJsonAsync<List<Ugyfel>>("ugyfel");
     }
 
     public async Task<Ugyfel> GetUgyfelAsync(int id)
     {
-        return await _httpClient.GetFromJsonAsync<Ugyfel>($"ugyfel/{id}");
+        return (await _httpClient.GetFromJsonAsync<Ugyfel>($"ugyfel/{id}"))!;
     }
 
     public async Task AddUgyfelAsync(Ugyfel ugyfel)

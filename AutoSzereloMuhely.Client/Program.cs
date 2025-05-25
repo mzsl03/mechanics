@@ -1,15 +1,25 @@
+using AutoSzereloMuhely.Client.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using AutoSzereloMuly.Client;
-using AutoSzereloMuly.Client.Services;
 
+namespace AutoSzereloMuhely.Client;
 
-var builder = WebAssemblyHostBuilder.CreateDefault(args);
-builder.RootComponents.Add<App>("#app");
-builder.RootComponents.Add<HeadOutlet>("head::after");
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        var builder = WebAssemblyHostBuilder.CreateDefault(args);
+        builder.RootComponents.Add<App>("#app");
+        builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+        builder.Services.AddScoped(sp => new HttpClient
+        {
+            BaseAddress = new Uri("http://localhost:5000")
+        });
 
-builder.Services.AddScoped<IUgyfelService, UgyfelService>();
+        builder.Services.AddScoped<IUgyfelService,UgyfelService>();
+        builder.Services.AddScoped<IMunkaService,MunkaService>();
 
-await builder.Build().RunAsync();
+        await builder.Build().RunAsync();
+    }
+}

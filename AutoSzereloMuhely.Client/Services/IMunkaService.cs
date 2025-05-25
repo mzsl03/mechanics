@@ -1,6 +1,6 @@
 using AutoSzereloMuhely.Domain;
 
-namespace AutoSzereloMuly.Client.Services;
+namespace AutoSzereloMuhely.Client.Services;
 
 public interface IMunkaService
 {

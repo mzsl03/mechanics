@@ -1,15 +1,13 @@
 @page "/ugyfel/add"
 @using AutoSzereloMuhely.Domain
+@using AutoSzereloMuhely.Client.Services
 
-@using AutoSzereloMuly.Client.Services
 @inject IUgyfelService UgyfelService
 @inject NavigationManager NavigationManager
 
 <h3>Adjon hozzá ügyfelet!</h3>
 
-<UgyfelForm Ugyfel="_ugyfel" OnValidSubmit>
-    
-</UgyfelForm>
+<UgyfelForm Ugyfel="_ugyfel" OnValidSubmit="AddUgyfelAsync" ButtonText="Mentés" />
 
 @code {
     private Ugyfel _ugyfel = new();
@@ -17,6 +15,6 @@
     private async Task AddUgyfelAsync()
     {
         await UgyfelService.AddUgyfelAsync(_ugyfel);
-        NavigationManager.NavigateTo("/ugyfel");
+        NavigationManager.NavigateTo("/ugyfelek");
     }
 }

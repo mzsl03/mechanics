@@ -1,5 +1,5 @@
 @using AutoSzereloMuhely.Domain
-
+@namespace AutoSzereloMuhely.Client.Components
 <EditForm Model="Ugyfel" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -11,7 +11,7 @@
     </div>
     <div class="mb-3">
         <label class="form-label">Lakcím</label>
-        <InputDate @bind-Value="Ugyfel.Lakcim" class="form-control" />
+        <InputText @bind-Value="Ugyfel.Lakcim" class="form-control" />
         <ValidationMessage For="() => Ugyfel.Lakcim" />
     </div>
     <div class="mb-3">
@@ -24,7 +24,7 @@
 </EditForm>
 
 @code {
-    [Parameter] public Ugyfel Ugyfel { get; set; }
-    [Parameter] public Func<Task> OnValidSubmit { get; set; }
-    [Parameter] public string ButtonText { get; set; }
+    [Parameter] public Ugyfel Ugyfel { get; set; } = new();
+    [Parameter] public Func<Task>? OnValidSubmit { get; set; }
+    [Parameter] public string? ButtonText { get; set; }
 }

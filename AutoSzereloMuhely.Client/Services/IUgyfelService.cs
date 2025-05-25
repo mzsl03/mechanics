@@ -1,10 +1,10 @@
 using AutoSzereloMuhely.Domain;
 
-namespace AutoSzereloMuly.Client.Services;
+namespace AutoSzereloMuhely.Client.Services;
 
 public interface IUgyfelService
 {
-    Task<List<Ugyfel>> GetUgyfelAsync();
+    Task<List<Ugyfel>?> GetAllUgyfelAsync();
 
     Task<Ugyfel> GetUgyfelAsync(int id);
 
