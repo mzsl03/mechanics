@@ -5,7 +5,7 @@ namespace AutoSzereloMuhely.API.Controller;
 
 
 [ApiController]
-[Route("munka")]
+[Route("api/munka")]
 public class MunkaController : ControllerBase
 {
     private readonly IMunkaService _munkaService;
@@ -26,10 +26,10 @@ public class MunkaController : ControllerBase
     public ActionResult<List<Munka>> GetAll()
     {
         var munkak = _munkaService.GetAll();
-        return Ok(munkak);
+        return Ok(munkak ?? new List<Munka>());
     }
 
-    [HttpGet("id")]
+    [HttpGet("{id}")]
     public ActionResult<Munka> Get(int id)
     {
         var munka = _munkaService.Get(id);
@@ -41,7 +41,7 @@ public class MunkaController : ControllerBase
         return BadRequest();
     }
 
-    [HttpDelete("id")]
+    [HttpDelete("{id}")]
     public ActionResult Delete(int id)
     {
         var munka = _munkaService.Get(id);
@@ -53,7 +53,7 @@ public class MunkaController : ControllerBase
         return Ok();
     }
 
-    [HttpPut("id")]
+    [HttpPut("{id}")]
     public IActionResult Update(int id, [FromBody] Munka munka)
     {
         if (id != munka.MunkaID)

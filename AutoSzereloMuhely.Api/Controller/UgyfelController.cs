@@ -5,7 +5,7 @@ namespace AutoSzereloMuhely.API.Controller;
 
 
 [ApiController]
-[Route("ugyfel")]
+[Route("api/ugyfel")]
 public class UgyfelController : ControllerBase
 {
     private readonly IUgyfelService _ugyfelService;
@@ -29,23 +29,29 @@ public class UgyfelController : ControllerBase
         return Ok(ugyfelek);
     }
     
-    [HttpGet("id")]
+    [HttpGet("{id}")]
     public ActionResult<Ugyfel> Get(int id)
     {
         var ugyfel = _ugyfelService.Get(id);
-        return ugyfel;
+        if (ugyfel is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(ugyfel);
     }
     
-    [HttpDelete("id")]
+    [HttpDelete("{id}")]
     public ActionResult Delete(int id)
     {
         var ugyfel = _ugyfelService.Get(id);
-        if (ugyfel is not null)
+        if (ugyfel is null)
         {
-            _ugyfelService.Delete(ugyfel.UgyfelId);    
+            return NotFound();
         }
 
-        return Ok();
+        _ugyfelService.Delete(id);
+        return NoContent();
     }
     
 }
