@@ -35,7 +35,7 @@ public class MunkaController : ControllerBase
         var munka = _munkaService.Get(id);
         if (munka is not null)
         {
-            return munka;    
+            return Ok(munka); 
         }
 
         return BadRequest();
@@ -48,6 +48,10 @@ public class MunkaController : ControllerBase
         if (munka is not null)
         {
             _munkaService.Delete(munka.MunkaID);    
+        }
+        else
+        {
+            return BadRequest();
         }
 
         return Ok();
