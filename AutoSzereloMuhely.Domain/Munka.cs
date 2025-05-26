@@ -19,25 +19,25 @@ public class Munka
     [ForeignKey(nameof(UgyfelId))]
     public Ugyfel? Ugyfel { get; set; }
     
-    [Required]
+    [Required(ErrorMessage = "Kérem a következő formátumban adja meg a rendszámot: 'AAA-111'!")]
     [RegularExpression("^[A-Z]{3}-\\d{3}$")]
     public string Rendszam { get; set; }
 
-    [Required]
-    [Range(typeof(int), "1900", "9999")] 
+    [Required(ErrorMessage = "Kérem adja meg a jármű gyártási évét! (min. 1900)")]
+    [Range(typeof(int), "1900", "9999",ErrorMessage = "Kérem adja meg a jármű gyártási évét! (min. 1900)")] 
     public int GyartasEve { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Kérem válasszon kategóriát!")]
     public EKategoria Kategoria { get; set; }
     
-    [Required]
+    [Required(ErrorMessage = "Kérem adjon egy rövid jellemzést a hibáról!")]
     public string Leiras { get; set; }
     
-    [Required]
-    [Range(1,10)]
+    [Required(ErrorMessage = "Kérem adja meg a hiba súlyosságát 1-10 között!")]
+    [Range(1,10,ErrorMessage = "Kérem adja meg a hiba súlyosságát 1-10 között!")]
     public int Sulyossag { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Kérem adja meg a munka állapotát!")]
     public EAllapot Allapot { get; set; } = EAllapot.Felvett;
 
 }
