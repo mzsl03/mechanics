@@ -1,0 +1,59 @@
+@page "/ugyfelek"
+@using AutoSzereloMuhely.Domain
+@using AutoSzereloMuhely.Client.Services
+@inject IUgyfelService UgyfelService
+@inject NavigationManager NavigationManager
+
+<h3>Ügyfélkezelés</h3>
+
+<button class="btn btn-primary mb-3" @onclick="NavigateToAdd">+ Új ügyfél</button>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Név</th>
+        <th>Email</th>
+        <th>Lakcím</th>
+        <th>Műveletek</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var ugyfel in ugyfelek)
+    {
+        <tr>
+            <td>@ugyfel.UgyfelNev</td>
+            <td>@ugyfel.Email</td>
+            <td>@ugyfel.Lakcim</td>
+            <td>
+                <button class="btn btn-sm btn-secondary me-2" @onclick="@(() => EditUgyfel(ugyfel.UgyfelId))">Szerkesztés</button>
+                <button class="btn btn-sm btn-danger" @onclick="@(() => DeleteUgyfel(ugyfel.UgyfelId))">Törlés</button>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+    private List<Ugyfel> ugyfelek = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        ugyfelek = await UgyfelService.GetAllUgyfelAsync();
+    }
+
+    private void NavigateToAdd()
+    {
+        NavigationManager.NavigateTo("/ugyfel/add");
+    }
+
+    private void EditUgyfel(int id)
+    {
+        NavigationManager.NavigateTo($"/ugyfel/edit/{id}");
+    }
+
+    private async Task DeleteUgyfel(int id)
+    {
+        await UgyfelService.DeleteUgyfelAsync(id);
+        ugyfelek = await UgyfelService.GetAllUgyfelAsync();
+    }
+}

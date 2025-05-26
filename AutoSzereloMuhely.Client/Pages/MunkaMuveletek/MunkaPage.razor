@@ -1,0 +1,111 @@
+@page "/munkak"
+@using AutoSzereloMuhely.Domain
+@using AutoSzereloMuhely.Client.Services
+@inject IMunkaService MunkaService
+@inject NavigationManager NavigationManager
+
+<h3>Munka kezelés</h3>
+
+<button class="btn btn-primary mb-3" @onclick="NavigateToAdd">+ Új munka</button>
+
+@if (munkak is null)
+{
+    <p>Munkaadatok betöltése folyamatban...</p>
+}
+else if (!munkak.Any())
+{
+    <p>Nincs rögzített munka.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Rendszám</th>
+                <th>Gyártás éve</th>
+                <th>Kategória</th>
+                <th>Leírás</th>
+                <th>Súlyosság</th>
+                <th>Állapot</th>
+                <th>Műveletek</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var munka in munkak)
+            {
+                <tr>
+                    <td title="@SzamoljMunkaorat(munka)">@munka.Rendszam</td>
+                    <td>@munka.GyartasEve</td>
+                    <td>@munka.Kategoria</td>
+                    <td>@munka.Leiras</td>
+                    <td>@munka.Sulyossag</td>
+                    <td>@munka.Allapot</td>
+                    <td>
+                        <button class="btn btn-sm btn-secondary me-2" @onclick="@(() => EditMunka(munka.MunkaID))">Szerkesztés</button>
+                        <button class="btn btn-sm btn-danger" @onclick="@(() => DeleteMunkaAsync(munka.MunkaID))">Törlés</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Munka>? munkak;
+
+    protected override async Task OnInitializedAsync()
+    {
+        munkak = await MunkaService.GetMunkaAsync();
+    }
+
+    private void NavigateToAdd()
+    {
+        NavigationManager.NavigateTo("/munka/add");
+    }
+
+    private void EditMunka(int id)
+    {
+        NavigationManager.NavigateTo($"/munka/edit/{id}");
+    }
+
+    private async Task DeleteMunkaAsync(int id)
+    {
+        await MunkaService.DeleteMunkaAsync(id);
+        munkak = await MunkaService.GetMunkaAsync();
+    }
+    
+    private string SzamoljMunkaorat(Munka munka)
+    {
+        double kategoriaOra = munka.Kategoria switch
+        {
+            EKategoria.Karosszeria => 3,
+            EKategoria.Motor => 8,
+            EKategoria.Futomu => 6,
+            EKategoria.Fekberendezes => 4,
+            _ => 0
+        };
+
+        int ev = DateTime.Now.Year - munka.GyartasEve;
+        double korSzorzo = ev switch
+        {
+            <= 5 => 0.5,
+            <= 10 => 1,
+            <= 20 => 1.5,
+            _ => 2
+        };
+
+        double sulyossagSzorzo = munka.Sulyossag switch
+        {
+            <= 2 => 0.2,
+            <= 4 => 0.4,
+            <= 7 => 0.6,
+            <= 9 => 0.8,
+            10 => 1,
+            _ => 0
+        };
+
+        var eredmeny = Math.Round(kategoriaOra * korSzorzo * sulyossagSzorzo, 2);
+        
+        return $"Munkaóra becslés: {eredmeny:0.##} óra";
+    }
+}
