@@ -35,7 +35,7 @@ public class UgyfelController : ControllerBase
         var ugyfel = _ugyfelService.Get(id);
         if (ugyfel is null)
         {
-            return NotFound();
+            return BadRequest();
         }
 
         return Ok(ugyfel);
@@ -47,11 +47,11 @@ public class UgyfelController : ControllerBase
         var ugyfel = _ugyfelService.Get(id);
         if (ugyfel is null)
         {
-            return NotFound();
+            return BadRequest(); 
         }
 
-        _ugyfelService.Delete(id);
-        return NoContent();
+        _ugyfelService.Delete(ugyfel.UgyfelId);
+        return Ok();
     }
     
 }
