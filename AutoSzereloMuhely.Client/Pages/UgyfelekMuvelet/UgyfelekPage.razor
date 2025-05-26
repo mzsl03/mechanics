@@ -7,34 +7,45 @@
 <h3>Ügyfélkezelés</h3>
 
 <button class="btn btn-primary mb-3" @onclick="NavigateToAdd">+ Új ügyfél</button>
-
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Név</th>
-        <th>Email</th>
-        <th>Lakcím</th>
-        <th>Műveletek</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var ugyfel in ugyfelek)
-    {
+@if (ugyfelek is null)
+{
+    <p>Ügyféladatok betöltése folyamatban...</p>
+}
+else if (!ugyfelek.Any())
+{
+    <p>Nincs rögzített ügyfél.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
         <tr>
-            <td>@ugyfel.UgyfelNev</td>
-            <td>@ugyfel.Email</td>
-            <td>@ugyfel.Lakcim</td>
-            <td>
-                <button class="btn btn-sm btn-secondary me-2" @onclick="@(() => EditUgyfel(ugyfel.UgyfelId))">Szerkesztés</button>
-                <button class="btn btn-sm btn-danger" @onclick="@(() => DeleteUgyfel(ugyfel.UgyfelId))">Törlés</button>
-            </td>
+            <th>Név</th>
+            <th>Email</th>
+            <th>Lakcím</th>
+            <th>Műveletek</th>
         </tr>
-    }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        @foreach (var ugyfel in ugyfelek)
+        {
+            <tr>
+                <td>@ugyfel.UgyfelNev</td>
+                <td>@ugyfel.Email</td>
+                <td>@ugyfel.Lakcim</td>
+                <td>
+                    <button class="btn btn-sm btn-secondary me-2" @onclick="@(() => EditUgyfel(ugyfel.UgyfelId))">Szerkesztés</button>
+                    <button class="btn btn-sm btn-danger" @onclick="@(() => DeleteUgyfel(ugyfel.UgyfelId))">Törlés</button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
 
 @code {
-    private List<Ugyfel> ugyfelek = new();
+    
+    private List<Ugyfel> ugyfelek;
 
     protected override async Task OnInitializedAsync()
     {
