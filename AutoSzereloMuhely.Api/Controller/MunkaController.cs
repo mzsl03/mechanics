@@ -32,13 +32,15 @@ public class MunkaController : ControllerBase
     [HttpGet("{id}")]
     public ActionResult<Munka> Get(int id)
     {
-        var munka = _munkaService.Get(id);
-        if (munka is not null)
+        try
         {
-            return Ok(munka); 
+            var munka = _munkaService.Get(id);
+            return munka is not null ? Ok(munka) : NotFound();
         }
-
-        return BadRequest();
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Hiba történt: {ex.Message}");
+        }
     }
 
     [HttpDelete("{id}")]

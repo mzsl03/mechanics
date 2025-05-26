@@ -42,7 +42,6 @@ else
                     <td>@munka.Sulyossag</td>
                     <td>@munka.Allapot</td>
                     <td>
-                        <button class="btn btn-sm btn-secondary me-2" @onclick="@(() => EditMunka(munka.MunkaID))">Szerkesztés</button>
                         <button class="btn btn-sm btn-danger" @onclick="@(() => DeleteMunkaAsync(munka.MunkaID))">Törlés</button>
                     </td>
                 </tr>
@@ -62,11 +61,6 @@ else
     private void NavigateToAdd()
     {
         NavigationManager.NavigateTo("/munka/add");
-    }
-
-    private void EditMunka(int id)
-    {
-        NavigationManager.NavigateTo($"/munka/edit/{id}");
     }
 
     private async Task DeleteMunkaAsync(int id)

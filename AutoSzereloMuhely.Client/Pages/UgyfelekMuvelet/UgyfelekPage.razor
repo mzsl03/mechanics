@@ -34,7 +34,6 @@ else
                 <td>@ugyfel.Email</td>
                 <td>@ugyfel.Lakcim</td>
                 <td>
-                    <button class="btn btn-sm btn-secondary me-2" @onclick="@(() => EditUgyfel(ugyfel.UgyfelId))">Szerkesztés</button>
                     <button class="btn btn-sm btn-danger" @onclick="@(() => DeleteUgyfel(ugyfel.UgyfelId))">Törlés</button>
                 </td>
             </tr>
@@ -55,11 +54,6 @@ else
     private void NavigateToAdd()
     {
         NavigationManager.NavigateTo("/ugyfel/add");
-    }
-
-    private void EditUgyfel(int id)
-    {
-        NavigationManager.NavigateTo($"/ugyfel/edit/{id}");
     }
 
     private async Task DeleteUgyfel(int id)
