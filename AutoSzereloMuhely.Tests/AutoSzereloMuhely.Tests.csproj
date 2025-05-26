@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AutoSzereloMuhely.Api\AutoSzereloMuhely.Api.csproj" />
+    <ProjectReference Include="..\AutoSzereloMuhely.Client\AutoSzereloMuhely.Client.csproj" />
     <ProjectReference Include="..\AutoSzereloMuhely.Domain\AutoSzereloMuhely.Domain.csproj" />
   </ItemGroup>
   
