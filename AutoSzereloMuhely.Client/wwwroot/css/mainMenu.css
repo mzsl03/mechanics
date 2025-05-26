@@ -1,0 +1,20 @@
+.display-4 {
+    color: #414833;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 50px;
+    padding: 50px;
+}
+
+.fs-5 {
+    color: #948979;
+    text-align: center;
+    font-weight: lighter;
+    padding: 25px;
+}
+.text-secondary {
+    color: #948979;
+    text-align: center;
+    font-weight: lighter;
+    padding: 25px;
+}
