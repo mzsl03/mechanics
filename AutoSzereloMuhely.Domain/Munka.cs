@@ -20,7 +20,7 @@ public class Munka
     public Ugyfel? Ugyfel { get; set; }
     
     [Required]
-    [RegularExpression("^[A-Z]{3}-\\d{3}$$")]
+    [RegularExpression("^[A-Z]{3}-\\d{3}$")]
     public string Rendszam { get; set; }
 
     [Required]
