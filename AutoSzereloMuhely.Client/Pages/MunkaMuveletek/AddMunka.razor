@@ -1,0 +1,20 @@
+@page "/munka/add"
+@using AutoSzereloMuhely.Domain
+@using AutoSzereloMuhely.Client.Services
+
+@inject IMunkaService MunkaService
+@inject NavigationManager NavigationManager
+
+<h3>Új munka felvétele</h3>
+
+<MunkaForm Munka="munka" OnValidSubmit="HandleSubmit" />
+
+@code {
+    private Munka munka = new();
+
+    private async Task HandleSubmit()
+    {
+        await MunkaService.AddMunkaAsync(munka);
+        NavigationManager.NavigateTo("/munkak");
+    }
+}

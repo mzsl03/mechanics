@@ -1,0 +1,83 @@
+@page "/munka/edit/{id:int}"
+@using AutoSzereloMuhely.Client.Services
+@using AutoSzereloMuhely.Domain
+
+@inject IMunkaService MunkaService
+@inject NavigationManager NavigationManager
+
+<h3>Munka szerkesztése</h3>
+
+@if (munka == null)
+{
+    <p>Munka betöltése...</p>
+}
+else
+{
+    <EditForm Model="munka" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label for="ugyfelId" class="form-label">Ügyfél azonosító</label>
+            <InputNumber id="ugyfelId" class="form-control" @bind-Value="munka.UgyfelId" />
+        </div>
+
+        <div class="mb-3">
+            <label for="rendszam" class="form-label">Rendszám</label>
+            <InputText id="rendszam" class="form-control" @bind-Value="munka.Rendszam" />
+        </div>
+
+        <div class="mb-3">
+            <label for="gyartasEve" class="form-label">Gyártás éve</label>
+            <InputNumber id="gyartasEve" class="form-control" @bind-Value="munka.GyartasEve" />
+        </div>
+
+        <div class="mb-3">
+            <label for="kategoria" class="form-label">Kategória</label>
+            <InputSelect id="kategoria" class="form-select" @bind-Value="munka.Kategoria">
+                @foreach (EKategoria kat in Enum.GetValues(typeof(EKategoria)))
+                {
+                    <option value="@kat">@kat</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div class="mb-3">
+            <label for="leiras" class="form-label">Leírás</label>
+            <InputTextArea id="leiras" class="form-control" @bind-Value="munka.Leiras" />
+        </div>
+
+        <div class="mb-3">
+            <label for="sulyossag" class="form-label">Súlyosság (1-10)</label>
+            <InputNumber id="sulyossag" class="form-control" @bind-Value="munka.Sulyossag" />
+        </div>
+
+        <div class="mb-3">
+            <label for="allapot" class="form-label">Állapot</label>
+            <InputSelect id="allapot" class="form-select" @bind-Value="munka.Allapot">
+                @foreach (EAllapot all in Enum.GetValues(typeof(EAllapot)))
+                {
+                    <option value="@all">@all</option>
+                }
+            </InputSelect>
+        </div>
+
+        <button type="submit" class="btn btn-success">Mentés</button>
+    </EditForm>
+}
+
+@code {
+    [Parameter] public int id { get; set; }
+    private Munka? munka;
+
+    protected override async Task OnInitializedAsync()
+    {
+        munka = await MunkaService.GetMunkaAsync(id);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        await MunkaService.UpdateMunkaAsync(id, munka!);
+        NavigationManager.NavigateTo("/munkak");
+    }
+}
