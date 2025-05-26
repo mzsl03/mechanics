@@ -19,17 +19,31 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUgyfelService, UgyfelService>();
 builder.Services.AddScoped<IMunkaService, MunkaService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowBlazor",
+        policy => policy
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
+
+
+
+
 var app = builder.Build();
+
+app.UseCors("AllowBlazor");
 
 if (app.Environment.IsDevelopment())
 {
-    //app.UseHttpsRedirection();
+    
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-Console.WriteLine("SQLite path: " + Path.GetFullPath("AutoSzereloMuhely.db"));
-
+app.UseRouting();
+app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();

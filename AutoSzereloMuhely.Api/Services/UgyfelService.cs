@@ -22,11 +22,9 @@ public class UgyfelService : IUgyfelService
         return _context.Ugyfelek.ToList();
     }
 
-    public Ugyfel Get(int id)
+    public Ugyfel? Get(int id)
     {
-        var ugyfel = _context.Ugyfelek.Find(id);
-        return ugyfel ?? throw new KeyNotFoundException($"Nem található ügyfél azonosítóval: {id}");;
-        
+        return _context.Ugyfelek.Find(id); 
     }
 
     public void Delete(int id)
