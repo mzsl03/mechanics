@@ -45,7 +45,7 @@ public class MunkaControllerUnitTest
     }
     
     [Fact]
-    public void MunkaController_Get_MunkaNotFound_ReturnsBadRequest()
+    public void MunkaController_Get_MunkaNotFound_ReturnsNotFound()
     {
         // Arrange
         int id = 99;
