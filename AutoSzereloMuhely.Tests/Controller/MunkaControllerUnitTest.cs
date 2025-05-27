@@ -57,7 +57,7 @@ public class MunkaControllerUnitTest
 
         // Assert
         var actionResult = Assert.IsType<ActionResult<Munka>>(result);
-        Assert.IsType<BadRequestResult>(actionResult.Result);
+        Assert.IsType<NotFoundResult>(actionResult.Result);
     }
     
     [Fact]

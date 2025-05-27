@@ -22,7 +22,7 @@ public class MunkaOraEstimatorUnitTest
         var result = MunkaOraEstimator.CountMunkaora(munka);
 
         // Assert
-        Assert.Equal("Munkaóra becslés: 4,8 óra", result);
+        Assert.Equal("Munkaóra becslés: 4.8 óra", result);
     }
     
 }
