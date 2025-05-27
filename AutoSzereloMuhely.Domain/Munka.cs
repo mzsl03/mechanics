@@ -20,7 +20,7 @@ public class Munka
     public Ugyfel? Ugyfel { get; set; }
     
     [Required(ErrorMessage = "Kérem a következő formátumban adja meg a rendszámot: 'AAA-111'!")]
-    [RegularExpression("^[A-Z]{3}-\\d{3}$")]
+    [RegularExpression("^[A-Z]{3}-\\d{3}$", ErrorMessage = "Kérem a következő formátumban adja meg a rendszámot: 'AAA-111'!")]
     public string Rendszam { get; set; }
 
     [Required(ErrorMessage = "Kérem adja meg a jármű gyártási évét! (min. 1900)")]
